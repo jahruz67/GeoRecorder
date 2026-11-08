@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.campusrecorder.core.RecordingTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-08T21:41:01.886Z" hostname="DESKTOP-SVOFKSH" time="18.761">
+  <properties/>
+  <testcase name="corruptedGzipAndMissingTrailerAreDetected" classname="org.campusrecorder.core.RecordingTest" time="0.571"/>
+  <testcase name="corruptCommittedDataRemainsAvailableInForensicExport" classname="org.campusrecorder.core.RecordingTest" time="0.175"/>
+  <testcase name="timestampsAndIntegerPrecisionArePreserved" classname="org.campusrecorder.core.RecordingTest" time="0.038"/>
+  <testcase name="intentionalPauseGapsDoNotDistortDeliveredRate" classname="org.campusrecorder.core.RecordingTest" time="0.003"/>
+  <testcase name="queueOverloadIsExactlyAccounted" classname="org.campusrecorder.core.RecordingTest" time="0.878"/>
+  <testcase name="pauseResumePersistsAllAcceptedEvents" classname="org.campusrecorder.core.RecordingTest" time="0.199"/>
+  <testcase name="storageExhaustionPreservesCommittedHistory" classname="org.campusrecorder.core.RecordingTest" time="0.04"/>
+  <testcase name="crashWithPartialJournalSalvagesCompleteFrames" classname="org.campusrecorder.core.RecordingTest" time="0.031"/>
+  <testcase name="nonIncreasingSequenceRejected" classname="org.campusrecorder.core.RecordingTest" time="0.035"/>
+  <testcase name="exportRoundTripAndChecksums" classname="org.campusrecorder.core.RecordingTest" time="0.137"/>
+  <testcase name="sustainedLogicalHourRemainsCompleteAcrossChunks" classname="org.campusrecorder.core.RecordingTest" time="16.434"/>
+  <testcase name="unavailableSourceStatusIsAnOrdinaryPreservedObservation" classname="org.campusrecorder.core.RecordingTest" time="0.055"/>
+  <testcase name="sourceRatesDetectRegressionWithoutInventingDrops" classname="org.campusrecorder.core.RecordingTest" time="0.001"/>
+  <testcase name="committedJournalCrashDoesNotDuplicate" classname="org.campusrecorder.core.RecordingTest" time="0.049"/>
+  <testcase name="activeAndDamagedSessionsCannotBeExported" classname="org.campusrecorder.core.RecordingTest" time="0.026"/>
+  <testcase name="corruptMetadataIsReconstructedAndOriginalBytesRetained" classname="org.campusrecorder.core.RecordingTest" time="0.082"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

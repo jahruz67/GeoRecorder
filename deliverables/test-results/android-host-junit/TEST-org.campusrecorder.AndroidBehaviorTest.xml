@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.campusrecorder.AndroidBehaviorTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-11-08T21:41:04.139Z" hostname="DESKTOP-SVOFKSH" time="30.289">
+  <properties/>
+  <testcase name="sensorSamplesCopyHardwareValuesAndAccuracyWithoutSmoothing[28]" classname="org.campusrecorder.AndroidBehaviorTest" time="8.155"/>
+  <testcase name="foregroundServiceCommitsThroughPauseResumeAndStop[28]" classname="org.campusrecorder.AndroidBehaviorTest" time="3.086"/>
+  <testcase name="revokedRadioPermissionsBecomeCapabilities[28]" classname="org.campusrecorder.AndroidBehaviorTest" time="0.047"/>
+  <testcase name="unavailableMotionHardwareIsExplicit[28]" classname="org.campusrecorder.AndroidBehaviorTest" time="0.055"/>
+  <testcase name="frameworkLocationRetainsIntegerTimestampsAndOptionalValues[28]" classname="org.campusrecorder.AndroidBehaviorTest" time="0.075"/>
+  <testcase name="homeHasRecordingControlsAndPermissionExplanation[28]" classname="org.campusrecorder.AndroidBehaviorTest" time="0.421"/>
+  <testcase name="sensorSamplesCopyHardwareValuesAndAccuracyWithoutSmoothing" classname="org.campusrecorder.AndroidBehaviorTest" time="14.501"/>
+  <testcase name="foregroundServiceCommitsThroughPauseResumeAndStop" classname="org.campusrecorder.AndroidBehaviorTest" time="3.48"/>
+  <testcase name="revokedRadioPermissionsBecomeCapabilities" classname="org.campusrecorder.AndroidBehaviorTest" time="0.036"/>
+  <testcase name="unavailableMotionHardwareIsExplicit" classname="org.campusrecorder.AndroidBehaviorTest" time="0.029"/>
+  <testcase name="frameworkLocationRetainsIntegerTimestampsAndOptionalValues" classname="org.campusrecorder.AndroidBehaviorTest" time="0.034"/>
+  <testcase name="homeHasRecordingControlsAndPermissionExplanation" classname="org.campusrecorder.AndroidBehaviorTest" time="0.316"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[Invalid ID 0x00000000.
+Invalid ID 0x00000000.
+]]></system-err>
+</testsuite>

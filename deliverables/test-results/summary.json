@@ -1,0 +1,30 @@
+{
+  "core": [
+    {
+      "suite": "org.campusrecorder.core.RecordingTest",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "android_host": [
+    {
+      "suite": "org.campusrecorder.AndroidBehaviorTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "python": {
+    "tests": 9,
+    "status": "passed; see python-tests.log"
+  },
+  "device_instrumentation": {
+    "compiled_cases": 5,
+    "executed": false,
+    "reason": "No physical device; hypervisor driver absent; native headless emulator software-emulation attempts exited 0xC0000005 before boot."
+  },
+  "date_local": "2026-11-08"
+}

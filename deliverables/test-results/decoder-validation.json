@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "sessions": [
+    {
+      "id": "2eaaa715-1703-46f6-a75c-644705cfd83d",
+      "state": "stopped",
+      "synthetic": true,
+      "observations": 240000,
+      "chunks": 21,
+      "dropped_observations": 0,
+      "kinds": {
+        "SENSOR": 240000
+      }
+    },
+    {
+      "id": "c4b8832f-2ae6-46be-a9d2-674fb21b5ffe",
+      "state": "stopped",
+      "synthetic": true,
+      "observations": 14,
+      "chunks": 1,
+      "dropped_observations": 0,
+      "kinds": {
+        "SENSOR": 1,
+        "LOCATION": 1,
+        "GNSS_RAW": 1,
+        "GNSS_SATELLITES": 1,
+        "GNSS_NAVIGATION": 1,
+        "GNSS_NMEA": 1,
+        "WIFI_SCAN": 1,
+        "BLE_SCAN": 1,
+        "WIFI_RTT": 1,
+        "CLOCK_ANCHOR": 1,
+        "LIFECYCLE": 1,
+        "HEALTH": 1,
+        "CAPABILITY": 1,
+        "SOURCE_STATS": 1
+      }
+    }
+  ],
+  "total_observations": 240014,
+  "integrity": "verified"
+}

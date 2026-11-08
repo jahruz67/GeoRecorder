@@ -1,0 +1,15 @@
+{
+  "synthetic": true,
+  "observations": 240000,
+  "logical_duration_seconds": 600,
+  "elapsed_seconds": 4.4183435,
+  "observations_per_second": 54318.999869521234,
+  "committed_bytes": 5027975,
+  "compressed_bytes_per_observation": 20.949895833333333,
+  "compressed_write_bytes_per_second": 1137977.389037317,
+  "peak_sampled_jvm_used_bytes": 151280784,
+  "queue_drops": 0,
+  "additional_schema_fixture_observations": 14,
+  "environment": "Java HotSpot(TM) 64-Bit Server VM",
+  "battery_impact": "Not measurable on desktop; use on-device health energy/current readings"
+}

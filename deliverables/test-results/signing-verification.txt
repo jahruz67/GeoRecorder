@@ -1,0 +1,17 @@
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): false
+Verified using v3 scheme (APK Signature Scheme v3): true
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: CN=Campus Recorder, O=Campus Recorder
+Signer #1 certificate SHA-256 digest: 461bdc0da9429d8efe7c53f6a197181058e4978a4b2945656e75a3b0c17d834b
+Signer #1 certificate SHA-1 digest: 5738b6d78ff35382db07f1e69561501e6eea8c60
+Signer #1 certificate MD5 digest: 4e5f482aee73fed768fef16a595a0de9
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 3072
+Signer #1 public key SHA-256 digest: 5b0345d14abed9cc7e5065f2102a5c3fc3f88398838f87fe2fdbe1443292f1b2
+Signer #1 public key SHA-1 digest: a38cfd796ba0e4875651c8a43314a6676ab8ffce
+Signer #1 public key MD5 digest: 23e8e9f39e062e298ed0955c2c5dad32

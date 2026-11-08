@@ -1,0 +1,74 @@
+C:\Users\360he\Documents\ChatGPT\datarecod\app\src\main\AndroidManifest.xml:8: Warning: Most apps don't need access to high sensor sampling rate. [HighSamplingRate]
+    <uses-permission android:name="android.permission.HIGH_SAMPLING_RATE_SENSORS" />
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "HighSamplingRate":
+   Most apps don't need access to high sensor sampling rate. Double check your
+   use case to ensure your app absolutely needs access to sensor sampling rate
+   > 200Hz. Be prepared for your app to be rejected from listing on Play Store
+   until your use case for high sensor sampling rate has been reviewed and
+   validated by the policy team.
+
+C:\Users\360he\Documents\ChatGPT\datarecod\app\build.gradle.kts:34: Warning: A newer version of org.robolectric:robolectric than 4.16.1 is available: 4.17 [NewerVersionAvailable]
+    testImplementation("org.robolectric:robolectric:4.16.1")
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "NewerVersionAvailable":
+   This detector checks with a central repository to see if there are newer
+   versions available for the dependencies used by this project. This is
+   similar to the GradleDependency check, which checks for newer versions
+   available in the Android SDK tools and libraries, but this works with any
+   MavenCentral dependency, and connects to the library every time, which
+   makes it more flexible but also much slower.
+
+C:\Users\360he\Documents\ChatGPT\datarecod\app\src\main\kotlin\org\campusrecorder\MainActivity.kt:151: Warning: Consider also using StorageManager#getAllocatableBytes and allocateBytes which will consider clearable cached data [UsableSpace]
+        storage.text=formatBytes(if(s.available>0) s.available else filesDir.usableSpace)
+                                                                             ~~~~~~~~~~~
+C:\Users\360he\Documents\ChatGPT\datarecod\app\src\main\kotlin\org\campusrecorder\MainActivity.kt:151: Warning: Consider also using StorageManager#getAllocatableBytes and allocateBytes which will consider clearable cached data [UsableSpace]
+        storage.text=formatBytes(if(s.available>0) s.available else filesDir.usableSpace)
+                                                                             ~~~~~~~~~~~
+C:\Users\360he\Documents\ChatGPT\datarecod\app\src\main\kotlin\org\campusrecorder\RecordingService.kt:185: Warning: Consider also using StorageManager#getAllocatableBytes and allocateBytes which will consider clearable cached data [UsableSpace]
+            "free_storage_bytes" to filesDir.usableSpace,"queue_size" to engine?.pending,
+                                             ~~~~~~~~~~~
+C:\Users\360he\Documents\ChatGPT\datarecod\app\src\main\kotlin\org\campusrecorder\RecordingService.kt:215: Warning: Consider also using StorageManager#getAllocatableBytes and allocateBytes which will consider clearable cached data [UsableSpace]
+        if(filesDir.usableSpace<128L*1024*1024) current.add("Storage is low; recording stops at 32 MiB reserve")
+                    ~~~~~~~~~~~
+C:\Users\360he\Documents\ChatGPT\datarecod\app\src\main\kotlin\org\campusrecorder\RecordingService.kt:223: Warning: Consider also using StorageManager#getAllocatableBytes and allocateBytes which will consider clearable cached data [UsableSpace]
+            e.store.metadata.bytes,filesDir.usableSpace,percent,(battery?.getIntExtra(BatteryManager.EXTRA_PLUGGED,0) ?: 0)>0,
+                                            ~~~~~~~~~~~
+
+   Explanation for issues of type "UsableSpace":
+   When you need to allocate disk space for large files, consider using the
+   new allocateBytes(FileDescriptor, long) API, which will automatically clear
+   cached files belonging to other apps (as needed) to meet your request.
+
+   When deciding if the device has enough disk space to hold your new data,
+   call getAllocatableBytes(UUID) instead of using getUsableSpace(), since the
+   former will consider any cached data that the system is willing to clear on
+   your behalf.
+
+   Note that these methods require API level 26. If your app is running on
+   older devices, you will probably need to use both APIs, conditionally
+   switching on Build.VERSION.SDK_INT. Lint only looks in the same compilation
+   unit to see if you are already using both APIs, so if it warns even though
+   you are already using the new API, consider moving the calls to the same
+   file or suppressing the warning.
+
+C:\Users\360he\Documents\ChatGPT\datarecod\app\src\main\kotlin\org\campusrecorder\MainActivity.kt:148: Warning: Do not concatenate text displayed with setText. Use resource string with placeholders. [SetTextI18n]
+        status.text="●  "+when { recovering -> "CHECKING SAVED SESSIONS"; preparing -> "PREPARING SENSORS"; active -> "RECORDING"; paused -> "PAUSED · SESSION SAVED"; else -> s.state.uppercase(Locale.US) }
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "SetTextI18n":
+   When calling TextView#setText
+   * Never call Number#toString() to format numbers; it will not handle
+   fraction separators and locale-specific digits properly. Consider using
+   String#format with proper format specifications (%d or %f) instead.
+   * Do not pass a string literal (e.g. "Hello") to display text. Hardcoded
+   text can not be properly translated to other languages. Consider using
+   Android resource strings instead.
+   * Do not build messages by concatenating text chunks. Such messages can not
+   be properly translated.
+
+   https://developer.android.com/guide/topics/resources/localization.html
+
+0 errors, 8 warnings

@@ -1,0 +1,67 @@
+syntax = "proto3";
+package campus.recording.v1;
+option java_package = "org.campusrecorder.proto";
+option java_outer_classname = "Recording";
+option optimize_for = LITE_RUNTIME;
+
+// Every gzip chunk expands to length-delimited Envelope messages: header, records, trailer.
+// Identifiers, flags and Android enum values are preserved, not interpreted as estimates.
+message Value {
+  oneof value {
+    sint64 integer = 1;
+    double real = 2;
+    string text = 3;
+    bytes blob = 4;
+    bool flag = 5;
+  }
+}
+message Field { string name = 1; Value value = 2; }
+message Group { string name = 1; repeated Field fields = 2; }
+message SensorSample {
+  int32 android_type = 1;
+  int32 accuracy = 2;
+  repeated float values = 3 [packed = true];
+}
+enum Kind {
+  KIND_UNSPECIFIED = 0;
+  SENSOR = 1;
+  LOCATION = 2;
+  GNSS_RAW = 3;
+  GNSS_SATELLITES = 4;
+  GNSS_NAVIGATION = 5;
+  GNSS_NMEA = 6;
+  WIFI_SCAN = 7;
+  BLE_SCAN = 8;
+  WIFI_RTT = 9;
+  CLOCK_ANCHOR = 10;
+  LIFECYCLE = 11;
+  HEALTH = 12;
+  CAPABILITY = 13;
+  SOURCE_STATS = 14;
+}
+message Observation {
+  uint64 sequence = 1; // Globally increasing within session: callback arrival, not event time.
+  string source_id = 2;
+  Kind kind = 3;
+  int64 monotonic_ns = 4; // Android elapsedRealtimeNanos domain; raw hardware timestamp where provided.
+  int64 received_monotonic_ns = 5;
+  repeated Field fields = 6;
+  repeated Group groups = 7;
+  SensorSample sensor = 8;
+}
+message ChunkHeader {
+  uint32 schema_version = 1;
+  string session_id = 2;
+  uint32 chunk_index = 3;
+  string clock_domain = 4;
+  string coordinate_reference = 5;
+}
+message ChunkTrailer {
+  uint64 observation_count = 1;
+  uint64 first_sequence = 2;
+  uint64 last_sequence = 3;
+  bool recovered = 4;
+}
+message Envelope {
+  oneof payload { ChunkHeader header = 1; Observation observation = 2; ChunkTrailer trailer = 3; }
+}

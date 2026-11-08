@@ -1,0 +1,14 @@
+test_corrupted_gzip_even_with_updated_checksum (test_decoder.DecoderTest.test_corrupted_gzip_even_with_updated_checksum) ... ok
+test_example_round_trip_all_observations (test_decoder.DecoderTest.test_example_round_trip_all_observations) ... ok
+test_missing_chunk_detected_by_metadata (test_decoder.DecoderTest.test_missing_chunk_detected_by_metadata) ... ok
+test_proto_unknown_field_compatible (test_decoder.DecoderTest.test_proto_unknown_field_compatible) ... ok
+test_session_count_mismatch_rejected (test_decoder.DecoderTest.test_session_count_mismatch_rejected) ... ok
+test_sha256_detects_modified_metadata (test_decoder.DecoderTest.test_sha256_detects_modified_metadata) ... ok
+test_truncated_and_oversized_frame_rejected (test_decoder.DecoderTest.test_truncated_and_oversized_frame_rejected) ... ok
+test_unchecked_archive_entry_rejected (test_decoder.DecoderTest.test_unchecked_archive_entry_rejected) ... ok
+test_wire_signed_integer_double_and_float (test_decoder.DecoderTest.test_wire_signed_integer_double_and_float) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 18.120s
+
+OK
