@@ -25,6 +25,12 @@ python tools/decode.py deliverables/campus-recordings-v1.zip
 
 The protobuf schema is the single source in `schema/recording.proto`. Gradle generates Java lite classes for the core and copies the schema into generated Android assets before building. No generated schema copy requires manual synchronization.
 
+## GitHub Actions build
+
+`.github/workflows/android-build.yml` runs on every push, pull request, and manual dispatch. It uses JDK 21, installs Android API 36/build tools 35.0.0, runs the core and Android host tests, generates and decodes the synthetic archive, builds debug/unsigned release/device-test APKs, and runs debug lint. The run uploads those unsigned APKs, the synthetic example, benchmark, and available test/lint reports as a 14-day artifact. It does not need repository secrets, sign APKs, publish a release, or run device instrumentation tests. Device tests require an attached authorized device and can be run separately.
+
+The workflow uses the official `actions/checkout` v7, `actions/setup-java` v6, `android-actions/setup-android` v4, and `actions/upload-artifact` v7 actions. Review action updates as part of normal repository maintenance.
+
 `app/build/outputs/apk/debug/app-debug.apk` is signed with the standard local Android debug identity. `app/build/outputs/apk/release/app-release-unsigned.apk` needs signing before installation. The delivered `CampusRecorder-1.0.0.apk` is a separately signed release build, with `debuggable=false`.
 
 ## Release signing

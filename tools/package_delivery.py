@@ -49,6 +49,7 @@ shutil.copy2(ROOT/"tools/decode.py",OUT/"decode.py")
 shutil.copy2(ROOT/"app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",OUT/"CampusRecorder-device-tests.apk")
 
 top=["README.md","CURRENT_STATUS.md",".gitignore","settings.gradle.kts","build.gradle.kts","gradle.properties","gradlew","gradlew.bat",
+     ".github/workflows/android-build.yml",
      "app/build.gradle.kts","core/build.gradle.kts"]
 files=[ROOT/p for p in top]
 for folder in ["app/src","core/src","schema","docs","tools","gradle/wrapper"]:

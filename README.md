@@ -28,4 +28,6 @@ See [build instructions](docs/BUILD.md), [architecture and reliability](docs/ARC
 
 The current implementation state, delivered artifacts, verification evidence and outstanding physical-device qualification steps are recorded in [CURRENT_STATUS.md](CURRENT_STATUS.md).
 
+GitHub Actions runs the Android builds, core/Android host tests, lint, synthetic export, and reference-decoder tests on every push, pull request, or manual dispatch. Download the unsigned APKs, synthetic example and test reports from the workflow run's `campus-recorder-build-*` artifact. It does not sign or publish a release APK.
+
 The desktop build, host tests, and synthetic benchmark are reproducible. Physical GNSS/radio performance, manufacturer battery policies, screen-off operation, and battery impact still require device validation. The compiled instrumentation suite includes a screen-off service test. Native emulator execution was unavailable on the build host; details are in the verification report. This is not a claim of completed field qualification.

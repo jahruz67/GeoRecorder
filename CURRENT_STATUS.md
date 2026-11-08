@@ -25,6 +25,7 @@ The recorder must discover supported hardware; gather useful sensor, location, r
 - The versioned schema is [schema/recording.proto](schema/recording.proto). Streaming export writes `manifest.json`, schema, session metadata, independently readable gzip protobuf chunks and `checksums.sha256` in `campus-recordings-v1.zip`. The standard-library Python decoder verifies ZIP paths/members/checksums, gzip CRC, frame bounds, protobuf framing, counts and sequence order, and can stream typed JSONL.
 - Private app storage, no `INTERNET`/account/camera/microphone permission, no automatic cloud upload, and no backup/device transfer are configured. The user chooses the export provider and destination.
 - The user’s technical and operational requirements, file-format semantics, sensor availability/Android restrictions, build steps, test findings, and a physical-device protocol are documented in `docs/` and the project README.
+- A GitHub Actions CI workflow is now present at `.github/workflows/android-build.yml`. On push, pull request, or manual dispatch it sets up JDK 21/API 36, runs the same Kotlin tests/build/lint and Python synthetic archive checks, then uploads unsigned debug/release/instrumentation APKs, sample archive, benchmark and reports. It requires no secrets and does not publish/sign releases or run device tests.
 
 ## Current verification results
 
@@ -50,6 +51,7 @@ The final Gradle and test transcripts, Robolectric JUnit XML/HTML, core JUnit XM
 - Standalone reference decoder: [tools/decode.py](tools/decode.py)
 - Public signing certificate and delivered-file hashes: `deliverables/signing-certificate.pem`, `deliverables/SHA256SUMS.txt`
 - Engineering notes: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/FORMAT.md](docs/FORMAT.md), [docs/SENSORS.md](docs/SENSORS.md), [docs/BUILD.md](docs/BUILD.md), [docs/TESTING.md](docs/TESTING.md)
+- GitHub Actions workflow: [.github/workflows/android-build.yml](.github/workflows/android-build.yml)
 
 The source archive deliberately excludes the private signing key. A workspace-generated RSA 3072 signing key and its local password are stored under ignored `.tools/signing/` for producing updates. Back them up securely if APK updates are required; Android cannot install a replacement release under a different signing identity. The APK is sideloadable and is not published on Play.
 

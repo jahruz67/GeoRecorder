@@ -1,0 +1,71 @@
+name: Android build and tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build, test, and package APKs
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+
+      - name: Install Android SDK packages
+        run: sdkmanager --install 'platforms;android-36' 'build-tools;35.0.0' 'platform-tools'
+
+      - name: Build APKs and run Kotlin tests and lint
+        run: >-
+          bash gradlew --no-daemon
+          :core:test
+          :core:synthetic
+          :app:testDebugUnitTest
+          :app:assembleDebug
+          :app:assembleRelease
+          :app:assembleDebugAndroidTest
+          :app:lintDebug
+
+      - name: Test reference decoder and synthetic export
+        run: |
+          python3 -m unittest discover -s tools -p 'test_decoder.py' -v
+          python3 tools/decode.py deliverables/campus-recordings-v1.zip
+
+      - name: Upload APKs, example recording, and test reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: campus-recorder-build-${{ github.run_number }}
+          if-no-files-found: warn
+          retention-days: 14
+          path: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/apk/release/app-release-unsigned.apk
+            app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+            app/build/reports/lint-results-debug.html
+            app/build/reports/lint-results-debug.txt
+            app/build/test-results/testDebugUnitTest/*.xml
+            core/build/test-results/test/*.xml
+            core/build/reports/tests/test/index.html
+            deliverables/campus-recordings-v1.zip
+            deliverables/synthetic-benchmark.json
