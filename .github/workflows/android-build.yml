@@ -1,16 +1,13 @@
-name: Android build and tests
+name: Android build and release
 
 on:
   push:
+    branches: ['**']
   pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
-
-concurrency:
-  group: android-build-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -38,6 +35,8 @@ jobs:
       - name: Build APKs and run Kotlin tests and lint
         run: >-
           bash gradlew --no-daemon
+          -PreleaseVersionCode="$((GITHUB_RUN_NUMBER + 1))"
+          -PreleaseVersionName="1.0.${GITHUB_RUN_NUMBER}"
           :core:test
           :core:synthetic
           :app:testDebugUnitTest
@@ -50,6 +49,21 @@ jobs:
         run: |
           python3 -m unittest discover -s tools -p 'test_decoder.py' -v
           python3 tools/decode.py deliverables/campus-recordings-v1.zip
+
+      - name: Sign the release APK with the fixed repository key
+        if: ${{ github.event_name != 'pull_request' }}
+        run: |
+          mkdir -p release
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" sign \
+            --ks .github/signing/campus-recorder.p12 \
+            --ks-key-alias campusrecorder \
+            --ks-pass pass:campusrecorder \
+            --key-pass pass:campusrecorder \
+            --out release/CampusRecorder.apk \
+            app/build/outputs/apk/release/app-release-unsigned.apk
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs release/CampusRecorder.apk
+          cd release
+          sha256sum CampusRecorder.apk > SHA256SUMS.txt
 
       - name: Upload APKs, example recording, and test reports
         if: ${{ always() }}
@@ -69,3 +83,42 @@ jobs:
             core/build/reports/tests/test/index.html
             deliverables/campus-recordings-v1.zip
             deliverables/synthetic-benchmark.json
+            release/CampusRecorder.apk
+            release/SHA256SUMS.txt
+
+  release:
+    name: Publish signed APK to GitHub Releases
+    needs: build
+    if: ${{ github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      actions: read
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Download the signed build
+        run: >-
+          gh run download "$GITHUB_RUN_ID"
+          --name "campus-recorder-build-${GITHUB_RUN_NUMBER}"
+          --dir artifacts
+
+      - name: Publish a release for this commit
+        run: |
+          tag="v1.0.${GITHUB_RUN_NUMBER}"
+          if gh release view "$tag" > /dev/null 2>&1; then
+            gh release upload "$tag" \
+              artifacts/release/CampusRecorder.apk \
+              artifacts/release/SHA256SUMS.txt \
+              --clobber
+          else
+            gh release create "$tag" \
+              artifacts/release/CampusRecorder.apk \
+              artifacts/release/SHA256SUMS.txt \
+              --target "$GITHUB_SHA" \
+              --title "Campus Recorder 1.0.${GITHUB_RUN_NUMBER}" \
+              --notes "Download CampusRecorder.apk to install or update. Built from commit $GITHUB_SHA using the fixed repository signing key." \
+              --generate-notes
+          fi
